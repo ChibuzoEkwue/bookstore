@@ -3,7 +3,7 @@
 This project is a simple react application making use of firebase for auth and getting books
 Material UI and the latest version of react-router-dom @6.6.1
 
- you beed to create a .env file in your root folder and add your api keys from firebase
+ you need to create a .env file in your root folder and add your api keys from firebase
 
 - REACT_APP_FIREBASE_APIKEY=******
 - REACT_APP_FIREBASE_AUTHDOMAIN=******
