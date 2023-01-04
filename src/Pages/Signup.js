@@ -9,28 +9,33 @@ const Signup = () => {
 	const emailRef = useRef("");
 	const passwordRef = useRef("");
 	const [error, setError] = useState(null);
-    const navigate = useNavigate()
-	const {dispatch} = useContext(AuthContext);
+	const navigate = useNavigate();
+	const { dispatch } = useContext(AuthContext);
 
-	const submitHandler = (e) => {
+	const submitHandler = async (e) => {
 		e.preventDefault();
 
 		const email = emailRef.current.value;
 		const password = passwordRef.current.value;
-		console.log(email, password);
 
-		createUserWithEmailAndPassword(auth, email, password)
-			.then((userCredential) => {
-				// Signed in
+		try {
+			const request = await createUserWithEmailAndPassword(
+				auth,
+				email,
+				password
+			);
+			const userCredential = await request;
+			if (userCredential) {
 				const user = userCredential.user;
-				dispatch({ type: "login", payload: user.providerData[0] });
-				navigate('/')
-			})
-			.catch((error) => {
-				const errorCode = error.code;
-				const errorMessage = error.message;
-				setError({ errorCode, errorMessage });
-			});
+				console.log(user)
+				dispatch({ type: "LOGIN", payload: user.providerData[0] });
+				navigate("/");
+			}
+		} catch (error) {
+			const errorCode = error.code;
+			const errorMessage = error.message;
+			setError({ errorCode, errorMessage });
+		}
 	};
 
 	return (

@@ -7,7 +7,7 @@ import {Link} from "react-router-dom"
 	return (
 		<Link to={"/bookDetails/" + id} style={{ textDecoration: "none" }}>
 			<Card sx={{ maxWidth: 250 }}>
-				<CardMedia sx={{ height: 355 }} image={image} title="green iguana" />
+				<CardMedia sx={{ height: 355 }} image={image} title={name} />
 				<CardContent>
 					<Typography
 						gutterBottom

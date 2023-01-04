@@ -6,18 +6,13 @@ const INTIAL_VALUE = {
 };
 
 const authReducer = (state, action) => {
-	if (action.type === "login") {
-		const userInfo = localStorage.setItem(
-			"user",
-			JSON.stringify(action.payload)
-		);
+	if (action.type === "LOGIN") {
 		return {
-			currentUser: userInfo,
+			currentUser: action.payload,
 		};
 	}
 
-	if (action.type === "logout") {
-		localStorage.removeItem("user");
+	if (action.type === "LOGOUT") {
 		return {
 			currentUser: null,
 		};
@@ -29,8 +24,8 @@ const AuthProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(authReducer, INTIAL_VALUE);
 
 	useEffect(() => {
-		state.currentUser = JSON.parse(localStorage.getItem("user")) || null;
-	}, []);
+		localStorage.setItem("user", JSON.stringify(state.currentUser));
+	}, [state.currentUser]);
 	return (
 		<AuthContext.Provider
 			value={{

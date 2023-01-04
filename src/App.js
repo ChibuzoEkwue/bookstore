@@ -4,23 +4,14 @@ import Home from "./Pages/Home";
 import Shelves from "./Pages/Shelves";
 import {
 	createBrowserRouter,
-	Navigate,
 	RouterProvider,
 } from "react-router-dom";
 import BookDetails from "./Pages/BookDetails";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import AuthProvider from "./AuthContext/AuthProvider";
-import { useContext } from "react";
-import { AuthContext } from "./AuthContext/AuthContext";
+
 function App() {
-	const { currentUser } = useContext(AuthContext);
-
-	console.log(currentUser);
-	const RequireAuth = ({ children }) => {
-		return currentUser.email ? children : <Navigate to="/login" />;
-	};
-
 	const router = createBrowserRouter([
 		{
 			path: "/",

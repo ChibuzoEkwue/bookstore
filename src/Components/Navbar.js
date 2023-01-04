@@ -15,13 +15,13 @@ import { useContext } from "react";
 import { AuthContext } from "../AuthContext/AuthContext";
 
 
-const pages = [{ name: "Shelve", path: "/shelves" }];
-const pagesAuth = [{ name: "Login", path: "/login" },{name:'Create an account', path:"/signup"}];
+const pagesAuth = [{ name: "Shelve", path: "/shelves" }];
+const pages = [{ name: "Login", path: "/login" },{name:'Create an account', path:"/signup"}];
 function ResponsiveAppBar() {
 	const [anchorElNav, setAnchorElNav] = React.useState(null);
 
-	const ctx = useContext(AuthContext);
-	console.log(ctx)
+	const {currentUser, dispatch} = useContext(AuthContext);
+	
 
 	const handleOpenNavMenu = (event) => {
 		setAnchorElNav(event.currentTarget);
@@ -32,7 +32,7 @@ function ResponsiveAppBar() {
 	};
 
 	const logOut =()=>{
-		ctx.dispatch({type:'logout'})
+		dispatch({type:'LOGOUT'})
 	}
 
 	return (
@@ -86,8 +86,8 @@ function ResponsiveAppBar() {
 								display: { xs: "block", md: "none" },
 							}}
 						>
-							{ctx.currentUser &&
-								pages.map((page) => (
+							{currentUser &&
+								pagesAuth.map((page) => (
 									<MenuItem key={page.name} onClick={handleCloseNavMenu}>
 										<Link to={page.path} style={{ textDecoration: "none" }}>
 											<Typography textAlign="center">{page.name}</Typography>
@@ -95,8 +95,8 @@ function ResponsiveAppBar() {
 									</MenuItem>
 								))}
 
-							{!ctx.currentUser &&
-								pagesAuth.map((page) => (
+							{!currentUser &&
+								pages.map((page) => (
 									<MenuItem key={page.name} onClick={handleCloseNavMenu}>
 										<Link to={page.path} style={{ textDecoration: "none" }}>
 											<Typography textAlign="center">{page.name}</Typography>
@@ -124,8 +124,8 @@ function ResponsiveAppBar() {
 						Book store
 					</Typography>
 					<Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-						{ctx.currentUser &&
-							pages.map((page) => (
+						{currentUser &&
+							pagesAuth.map((page) => (
 								<Link to={page.path} key={page.name}>
 									<Button
 										onClick={handleCloseNavMenu}
@@ -136,7 +136,7 @@ function ResponsiveAppBar() {
 								</Link>
 							))}
 
-						{ctx.currentUser && (
+						{currentUser && (
 							<Button onClick={logOut}
 								// onClick={handleCloseNavMenu}
 								sx={{ my: 2, color: "white", display: "block" }}
@@ -145,8 +145,8 @@ function ResponsiveAppBar() {
 							</Button>
 						)}
 
-						{!ctx.currentUser &&
-							pagesAuth.map((page) => (
+						{!currentUser &&
+							pages.map((page) => (
 								<Link to={page.path} key={page.name}>
 									<Button
 										onClick={handleCloseNavMenu}

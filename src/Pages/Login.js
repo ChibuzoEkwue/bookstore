@@ -23,7 +23,7 @@ const Login = () => {
 				// Signed in
 				const user = userCredential.user;
 				console.log(user.providerData[0]);
-				dispatch({ type: "login", payload: user.providerData[0] });
+				dispatch({ type: "LOGIN", payload: user.providerData[0] });
 				navigate("/");
 			})
 			.catch((error) => {
